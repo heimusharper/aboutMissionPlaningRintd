@@ -1,0 +1,196 @@
+%\documentclass[twoside,draft]{article}
+\documentclass[twoside]{article}
+\usepackage[a5paper]{geometry}
+   \geometry{papersize={145mm, 200mm}}
+   \geometry{left=18mm}
+   \geometry{right=18mm}
+   \geometry{top=15mm}
+   \geometry{bottom=15mm}
+\usepackage{indentfirst} % Красная строка
+\usepackage{lipsum}  % this package is for creating filler text
+\usepackage[english,russian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx} % для вставки картинок
+\usepackage{cmap} % для кодировки шрифтов в pdf
+\usepackage{amsmath,amsfonts,amssymb,amscd,euscript} % поддержка русских букв в формулах
+\usepackage{subcaption}
+\usepackage[tiny]{titlesec} % размер заголовков big medium small tiny
+\usepackage[bottom]{footmisc} % чтоб сноски были в конце страницы
+\usepackage{epstopdf} % чтоб работали картинки в Windows
+\usepackage{setspace}
+\usepackage{multirow} % улучшенное форматирование таблиц
+\usepackage{longtable} % работа с длинными таблицами
+\usepackage[tableposition=top]{caption}
+\usepackage{psfrag}
+\usepackage{cite}
+\usepackage{listings}
+\usepackage{lastpage}
+\usepackage{verbatim}
+\usepackage{rotating} % для поворота таблиц
+\usepackage{wrapfig} % для вписывания изображений в текст
+\usepackage{booktabs} % To thicken table lines
+\usepackage{lscape}
+
+\lstset{extendedchars=true, %Чтобы русские буквы в комментариях были
+		inputencoding=utf8,
+        belowcaptionskip=0pt,
+        texcl}
+        
+\graphicspath{{img/}}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\fancyheadoffset{0mm}
+\fancyfootoffset{0mm}
+\setlength{\headheight}{10pt}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\usepackage{titlesec}
+%\titleformat{\part}[display]
+    %{\filcenter}
+    %{\Large\MakeUppercase{\partname} \thepart}
+    %{12pt}
+    %{\Large\bfseries}{}
+    
+\titleformat{\chapter}[display]
+    {\filcenter}
+    {\MakeUppercase{\chaptertitlename}\thechapter}
+    {8pt}
+    {\bfseries}{}
+ 
+\titleformat{\section}
+    {\normalsize\bfseries\center}
+    {\thesection}
+    {0.5em}{}
+ 
+\titleformat{\subsection}
+    {\normalsize\bfseries}
+    {\thesubsection}
+    {1em}{}
+    
+% Отступ заголовков
+\titlespacing*{\section}{0pt}{*0}{*0}
+
+% Нумерация без точек после цифры
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\theenumii}{\arabic{enumi}.\arabic{enumii}}
+\renewcommand\labelenumi{\theenumi}
+\renewcommand\labelenumii{\theenumii}
+ 
+% Настройка вертикальных и горизонтальных отступов
+%\titlespacing*{\chapter}{0pt}{-30pt}{8pt}
+\titlespacing*{\section}{\parindent}{*0}{*0}
+\titlespacing*{\subsection}{\parindent}{*4}{*4}
+
+% Работа с переносами
+\pretolerance=7000
+\doublehyphendemerits=1000000
+\hyphenpenalty=1000
+\uchyph=1 % Запрет переноса в заголовках
+
+\sloppy
+
+% Подавление висячих строк
+\clubpenalty=10000
+\widowpenalty=10000
+
+\parindent=0.55cm % Отступ
+\singlespacing % Межстрочный интервал
+\frenchspacing % Одинарные пробелы
+
+% Команда для задания УДК
+\newcommand{\UDK}[1]{\noindent\textbf{УДК}~#1}
+
+\newcommand{\annatation}[1]{\footnotesize{\textit{#1}}\normalsize\vspace{1em}}
+\newcommand{\keywords}[1]{\footnotesize{\textbf{Ключевые слова:}~#1}\normalsize\vspace{1em}}
+
+% Счетчик статей
+\newcounter{topic}
+\addtocounter{topic}{0} % set them to some other numbers than 0
+\newcommand{\topic}[1]{
+	\section*{#1} 
+	% Обнуление внутренних счетчиков для каждой статьи
+	\setcounter{equation}{0}
+	\setcounter{table}{0}
+	\setcounter{figure}{0}
+	\setcounter{footnote}{0}
+}
+
+% Команда для указания авторов
+\newcommand{\authors}[1]{
+	\vspace{1em} \noindent \emph{#1}
+}
+
+% Команда для указания адреса
+\newcommand{\addres}[1]{#1}
+
+% Команда для указания email
+\newcommand{\email}[1]{
+	e-mail: \emph{#1}
+}
+
+% Команда для добавления заголовка в содержание
+\newcommand{\topiccontent}[2] {
+	\addtocounter{topic}{1}
+	\addcontentsline{toc}{section}{
+		%\arabic{part}.\arabic{topic}.
+		\emph{#2} \newline #1
+	}
+}
+
+% Нумерация талиц и рисунков в тексте
+\newcommand{\btref}[1]{\ref{#1}}
+
+% Нумерация формул
+\renewcommand{\theequation}{\arabic{equation}}
+
+% Форматирование подписей таблиц и рисунков
+\DeclareCaptionLabelFormat{gostfigure}{Рисунок #2}
+\DeclareCaptionLabelFormat{gosttable}{Таблица #2}
+\DeclareCaptionLabelSeparator{gost}{~---~}
+\captionsetup{labelsep=gost}
+\captionsetup[figure]{labelformat=gostfigure, justification=centering, margin=0.55cm}
+\captionsetup[table]{labelformat=gosttable, margin={0.55cm, 0cm}, singlelinecheck=false, justification=justified}
+
+\makeatletter
+
+% Настройка отображения списка ли тературы
+\newcommand{\re}{\vspace{-0.5em}}
+\renewcommand*{\@biblabel}[1]{ #1.\hfill }
+
+% Верхний колонтитул для страниц
+\renewcommand{\@oddhead}{\hbox to 108mm{\hrulefill\raisebox{1.8mm}{\underline{\strut{\small\bfseries\slshape Безопасность в техносфере 2021}}}}}
+
+% Колонтитулы для страниц без нумерации !!!!!!!!!! не работает (съезжает нумерация) !!!!!!!!!!!!!!
+\fancypagestyle{btPageStyleR}{
+	\fancyhf{}
+	\fancyhead[R]{\hbox to 108mm{\hrulefill\raisebox{1.8mm}{\underline{\strut{\small\bfseries\slshape Безопасность в техносфере 2021}}}}}
+}
+
+\fancypagestyle{btPageStyleLI}{
+	\fancyhf{}
+	\fancyhead[L]{\hbox to 108mm{\raisebox{1.8mm}{\underline{\strut{\footnotesize\bfseries\slshape Раздел I}}}\hrulefill}}
+}
+
+% Настройка отображения содержания
+\renewcommand{\@dotsep}{3}
+\renewcommand{\l@part}{\@dottedtocline{1}{0em}{1.25em}}
+\renewcommand{\l@section}{\@dottedtocline{2}{1.25em}{1.75em}}
+\renewcommand{\l@subsection}{\@dottedtocline{3}{2.75em}{2.6em}}
+
+\makeatletter
+
+% Оформление заголовков
+\newcommand{\btparagraph}[1]{\vspace{1em}\noindent \textbf{#1}\hfill\vspace{1em}}
+
+% Команда, которая задает год
+\renewcommand{\year}{2021}
+
+% Команда, которая вставляет в статью текст об участии в гранте
+\newcommand{\btgrant}{Работа поддержана грантом Минобрнауки №RFMEFI57414X0038 в рамках реализации ФЦП <<Исследования и разработки по приоритетным направлениям развития научно-технологического комплекса России на 2014 -- 2020 годы>>}
+
+\newcommand{\argmin}{\arg\!\min}
+
